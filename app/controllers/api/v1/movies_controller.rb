@@ -1,9 +1,9 @@
 class Api::V1::MoviesController < Api::V1::ApiController
-  before_action :set_movie, only: [:update, :show, :destory]
-  before_action :require_authentication!, only: [:update, :show, :destroy]
+  before_action :set_movie, only: [:update, :show, :destroy]
+  before_action :require_authorization!, only: [:update, :show, :destroy]
 
   def index
-    @movies = current_user.movies
+    @movies = Movie.all.order(:title)
 
     render json: @movies
   end
@@ -13,12 +13,12 @@ class Api::V1::MoviesController < Api::V1::ApiController
   end
 
   def create
-    @movie = Movie.new(movie_params).merge(user: current_user)
+    @movie = Movie.new(movie_params.merge(user: current_user))
 
     if @movie.save
       render json: @movie, status: :created
     else
-      render json: @movie.errors, status: unprocessable_entity
+      render json: @movie.errors, status: :unprocessable_entity
     end
   end
 
@@ -26,7 +26,7 @@ class Api::V1::MoviesController < Api::V1::ApiController
     if @movie.update(movie_params)
       render json: @movie
     else
-      render json: @movie.errors, status: unprocessable_entity
+      render json: @movie.errors, status: :unprocessable_entity
     end
   end
 
