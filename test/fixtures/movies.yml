@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  director: MyString
+  duration_min: 1
+  release_year: 2020-05-12 11:35:42
+  user: one
+
+two:
+  title: MyString
+  description: MyText
+  director: MyString
+  duration_min: 1
+  release_year: 2020-05-12 11:35:42
+  user: two
